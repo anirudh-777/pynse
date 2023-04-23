@@ -1,3 +1,7 @@
+"""
+pynse - This module contains functions to fetch data from the NSE website.
+"""
+
 import pandas as pd
 
 from pynse.scraping import NseStockSpider, run_spider
