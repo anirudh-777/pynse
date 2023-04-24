@@ -1,1 +1,2 @@
-pandas
+panda==1.5.3
+equests==2.28.2

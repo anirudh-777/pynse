@@ -13,7 +13,10 @@ setuptools.setup(
     long_description_content_type="text/markdown",  author = 'Anirudh Prakash',
     author_email = 'anirudh.prakash05@gmail.com',
     url = 'https://github.com/anirudh-777/pynse',
-    install_requires=['pandas'],
+    install_requires=['pandas>=1.5.3', 'requests>=2.25.1'],
+    extras_requires={
+        'dev': ['pytest>=7.0'],
+    },
     keywords = ['nseindia', 'nse', 'python', 'sdk', 'trading', 'stock markets'],
     classifiers=[
       'Intended Audience :: Developers',
@@ -24,4 +27,5 @@ setuptools.setup(
       'Programming Language :: Python :: Implementation :: PyPy',
       'Topic :: Software Development :: Libraries :: Python Modules'
     ],
+    python_requires='>=3.8',
 )
