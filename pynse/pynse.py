@@ -151,5 +151,5 @@ def get_stock_symbols():
 
 if __name__ == "__main__":
     stock_list = ["RELIANCE", "ITC", "SBIN"]
-    stock_data = get_stock_data(stock_list=stock_list)
+    stock_data = get_data_for_stocks(stock_list=stock_list)
     print(stock_data)
