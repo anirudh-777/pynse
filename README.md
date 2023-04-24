@@ -3,7 +3,7 @@ Python library to get stock data from the NSE website.
 
 ## Basic Usage
 
-Get a stock's data as a pandas dataframe.
+Get a stock's info as a pandas dataframe.
 
 ```
 In [1]: from pynse import get_stock_data
