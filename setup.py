@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",  author = 'Anirudh Prakash',
     author_email = 'anirudh.prakash05@gmail.com',
     url = 'https://github.com/anirudh-777/pynse',
-    install_requires=['scrapy', 'scrapy-playwright', 'pandas'],
+    install_requires=['pandas'],
     keywords = ['nseindia', 'nse', 'python', 'sdk', 'trading', 'stock markets'],
     classifiers=[
       'Intended Audience :: Developers',

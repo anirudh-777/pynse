@@ -6,7 +6,6 @@ import pandas as pd
 
 from pynse.constants import URLS
 from pynse.request_utils import make_nse_request
-from pynse.scraping import NseStockSpider, run_spider
 
 
 def get_stock_data(stock_list=None):

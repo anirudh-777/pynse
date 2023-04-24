@@ -28,7 +28,6 @@ SBIN          NSE  Financial Services          Financial Services               
 ### Setup
 * Run `export BASE_REPO_PATH="Folder where nsepy checked out"`
 * Install the required packages - `pip install -r $BASE_REPO_PATH/requirements.txt`
-* Run `playwright install`
 * Build the pynse package - `cd $BASE_REPO_PATH; python setup.py develop`
 
 ### Run Tests
