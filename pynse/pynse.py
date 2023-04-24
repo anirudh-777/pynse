@@ -69,6 +69,42 @@ def get_nse_advances_declines():
     return adv_dec_dict
 
 
+def get_capital_market_status():
+    """Get capital market status
+    Returns:
+        Dict: Returns a dict with capital market status data
+    """
+    capital_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    return capital_market_status["marketStatus"][0]
+
+
+def get_currency_market_status():
+    """Get currency market status
+    Returns:
+        Dict: Returns a dict with currency market status data
+    """
+    currency_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    return currency_market_status["marketStatus"][1]
+
+
+def get_commodity_market_status():
+    """Get commodity market status
+    Returns:
+        Dict: Returns a dict with commodity market status data
+    """
+    commodity_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    return commodity_market_status["marketStatus"][2]
+
+
+def get_debt_market_status():
+    """Get debt market status
+    Returns:
+        Dict: Returns a dict with debt market status data
+    """
+    debt_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    return debt_market_status["marketStatus"][3]
+
+
 if __name__ == "__main__":
     stock_list = ["RELIANCE", "ITC", "SBIN"]
     stock_data = get_stock_data(stock_list=stock_list)
