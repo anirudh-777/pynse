@@ -5,7 +5,7 @@ pynse - This module contains functions to fetch data from the NSE website
 import pandas as pd
 
 from pynse.constants import URLS
-from pynse.request_utils import make_nse_request
+from pynse.request_utils import make_csv_request, make_nse_request
 
 
 def get_stock_data(stock_list=None):
@@ -102,6 +102,15 @@ def get_debt_market_status():
     """
     debt_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
     return debt_market_status["marketStatus"][3]
+
+
+def get_stock_symbols():
+    """Get list of all stock symbols
+    Returns:
+        List: Returns a list with all stock symbols
+    """
+    securities_df = make_csv_request(URLS.NSE_URLS.SECURITIES_CSV)
+    return securities_df["SYMBOL"].tolist()
 
 
 if __name__ == "__main__":

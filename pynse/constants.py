@@ -18,3 +18,4 @@ class URLS(object):
         ADV_DEC_ALL = "https://www.nseindia.com/api/snapshot-capital-market-ews"
         STOCK_DATA = "https://www.nseindia.com/api/quote-equity?symbol={}"
         MARKET_STATUS = "https://www.nseindia.com/api/marketStatus"
+        SECURITIES_CSV = "https://www.nseindia.com/content/equities/EQUITY_L.csv"

@@ -2,6 +2,9 @@
 This file contains utility functions to make requests to the NSE website.
 """
 
+import io
+
+import pandas as pd
 import requests
 
 
@@ -31,3 +34,9 @@ def make_nse_request(url):
         res = s.get("http://nseindia.com", headers=headers)
         res = s.get(url, headers=headers).json()
     return res
+
+
+def make_csv_request(url):
+    resp = requests.get(url)
+    df = pd.read_csv(io.StringIO(resp.content.decode("utf-8")))
+    return df
