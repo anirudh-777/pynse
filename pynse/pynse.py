@@ -8,14 +8,14 @@ from pynse.constants import URLS
 from pynse.request_utils import request_nse_csv, request_nse_json
 
 
-def get_stock_data(stock_list=None):
+def get_data_for_stocks(symbol_list=None):
     """get stock data for a list of stocks
     Args:
         stock_list (List, optional): List of stocks to fetch data for. Defaults to None.
     Returns:
         DataFrame: Returns a dataframe with data for stocks in stock_list
     """
-    stock_list = stock_list or []
+    stock_list = symbol_list or []
     if not stock_list:
         return
 
@@ -47,6 +47,42 @@ def get_stock_data(stock_list=None):
 
     # create a stock data dataframe
     stock_data = pd.DataFrame(stock_data_list)
+    stock_data = stock_data.set_index("symbol")
+    return stock_data
+
+
+def get_data_for_stock(symbol):
+    """get stock data for a stock
+    Args:
+        symbol (symbol, required): Stock symbol to fetch data for. Defaults to None.
+    Returns:
+        DataFrame: Returns a dataframe with data for the give stock.
+    """
+    stock_data = request_nse_json(URLS.NSE_URLS.STOCK_DATA.format(symbol))
+    if not stock_data:
+        print("No data found for: ", symbol)
+        return pd.DataFrame()
+
+    stock_data_dict = {
+        "exchange": "NSE",
+        "symbol": symbol,
+        "name": stock_data["info"]["companyName"],
+        "last_price": stock_data["priceInfo"]["lastPrice"],
+        "last_price_time": stock_data["metadata"]["lastUpdateTime"],
+        "price_change": stock_data["priceInfo"]["change"],
+        "percent_change": stock_data["priceInfo"]["pChange"],
+        "price_band": stock_data["priceInfo"]["pPriceBand"],
+        "macro_sector": stock_data["industryInfo"]["macro"],
+        "sector": stock_data["industryInfo"]["sector"],
+        "industry": stock_data["industryInfo"]["industry"],
+        "basic_industry": stock_data["industryInfo"]["basicIndustry"],
+        "pe_ratio": stock_data["metadata"]["pdSymbolPe"],
+        "sector_pe_ratio": stock_data["metadata"]["pdSectorPe"],
+        "ipo_date": stock_data["metadata"]["listingDate"],
+    }
+
+    # create a stock data dataframe
+    stock_data = pd.DataFrame([stock_data_dict])
     stock_data = stock_data.set_index("symbol")
     return stock_data
 
