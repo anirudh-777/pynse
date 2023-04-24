@@ -8,6 +8,32 @@ from pynse.constants import URLS
 from pynse.request_utils import request_nse_csv, request_nse_json
 
 
+def  _get_stock_data_dict(stock_data):
+    """get stock data dict from stock_data
+    Args:
+        stock_data (Dict): Stock
+    Returns:
+        Dict: Returns a dict with stock data
+    """
+    return {
+            "exchange": "NSE",
+            "symbol": stock_data["info"]["symbol"],
+            "name": stock_data["info"]["companyName"],
+            "last_price": stock_data["priceInfo"]["lastPrice"],
+            "last_price_time": stock_data["metadata"]["lastUpdateTime"],
+            "price_change": stock_data["priceInfo"]["change"],
+            "percent_change": stock_data["priceInfo"]["pChange"],
+            "price_band": stock_data["priceInfo"]["pPriceBand"],
+            "macro_sector": stock_data["industryInfo"]["macro"],
+            "sector": stock_data["industryInfo"]["sector"],
+            "industry": stock_data["industryInfo"]["industry"],
+            "basic_industry": stock_data["industryInfo"]["basicIndustry"],
+            "pe_ratio": stock_data["metadata"]["pdSymbolPe"],
+            "sector_pe_ratio": stock_data["metadata"]["pdSectorPe"],
+            "ipo_date": stock_data["metadata"]["listingDate"],
+
+    }
+
 def get_data_for_stocks(symbol_list=None):
     """get stock data for a list of stocks
     Args:
@@ -26,24 +52,7 @@ def get_data_for_stocks(symbol_list=None):
         if not stock_data:
             print("No data found for: ", stock)
             continue
-        stock_data_dict = {
-            "exchange": "NSE",
-            "symbol": stock,
-            "name": stock_data["info"]["companyName"],
-            "last_price": stock_data["priceInfo"]["lastPrice"],
-            "last_price_time": stock_data["metadata"]["lastUpdateTime"],
-            "price_change": stock_data["priceInfo"]["change"],
-            "percent_change": stock_data["priceInfo"]["pChange"],
-            "price_band": stock_data["priceInfo"]["pPriceBand"],
-            "macro_sector": stock_data["industryInfo"]["macro"],
-            "sector": stock_data["industryInfo"]["sector"],
-            "industry": stock_data["industryInfo"]["industry"],
-            "basic_industry": stock_data["industryInfo"]["basicIndustry"],
-            "pe_ratio": stock_data["metadata"]["pdSymbolPe"],
-            "sector_pe_ratio": stock_data["metadata"]["pdSectorPe"],
-            "ipo_date": stock_data["metadata"]["listingDate"],
-        }
-        stock_data_list.append(stock_data_dict)
+        stock_data_list.append(_get_stock_data_dict(stock_data))
 
     # create a stock data dataframe
     stock_data = pd.DataFrame(stock_data_list)
@@ -63,26 +72,8 @@ def get_data_for_stock(symbol):
         print("No data found for: ", symbol)
         return pd.DataFrame()
 
-    stock_data_dict = {
-        "exchange": "NSE",
-        "symbol": symbol,
-        "name": stock_data["info"]["companyName"],
-        "last_price": stock_data["priceInfo"]["lastPrice"],
-        "last_price_time": stock_data["metadata"]["lastUpdateTime"],
-        "price_change": stock_data["priceInfo"]["change"],
-        "percent_change": stock_data["priceInfo"]["pChange"],
-        "price_band": stock_data["priceInfo"]["pPriceBand"],
-        "macro_sector": stock_data["industryInfo"]["macro"],
-        "sector": stock_data["industryInfo"]["sector"],
-        "industry": stock_data["industryInfo"]["industry"],
-        "basic_industry": stock_data["industryInfo"]["basicIndustry"],
-        "pe_ratio": stock_data["metadata"]["pdSymbolPe"],
-        "sector_pe_ratio": stock_data["metadata"]["pdSectorPe"],
-        "ipo_date": stock_data["metadata"]["listingDate"],
-    }
-
     # create a stock data dataframe
-    stock_data = pd.DataFrame([stock_data_dict])
+    stock_data = pd.DataFrame([_get_stock_data_dict(stock_data)])
     stock_data = stock_data.set_index("symbol")
     return stock_data
 
