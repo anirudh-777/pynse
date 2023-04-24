@@ -25,18 +25,22 @@ def get_nse_headers():
     return headers
 
 
-def make_nse_request(url):
+def make_nse_request(url, params=None):
     headers = get_nse_headers()
     try:
-        res = requests.get(url, headers=headers).json()
+        res = requests.get(url, headers=headers, params=params)
+        if res.status_code == 401:
+            raise ValueError
     except ValueError:
         s = requests.Session()
         res = s.get("http://nseindia.com", headers=headers)
-        res = s.get(url, headers=headers).json()
+        res = s.get(url, headers=headers, params=params)
     return res
 
+def request_nse_json(url):
+    return make_nse_request(url).json()
 
-def make_csv_request(url):
-    resp = requests.get(url)
+def request_nse_csv(url):
+    resp = make_nse_request(url, params={"csv": "true"})
     df = pd.read_csv(io.StringIO(resp.content.decode("utf-8")))
     return df

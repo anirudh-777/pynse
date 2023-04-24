@@ -5,7 +5,7 @@ pynse - This module contains functions to fetch data from the NSE website
 import pandas as pd
 
 from pynse.constants import URLS
-from pynse.request_utils import make_csv_request, make_nse_request
+from pynse.request_utils import request_nse_csv, request_nse_json
 
 
 def get_stock_data(stock_list=None):
@@ -22,7 +22,7 @@ def get_stock_data(stock_list=None):
     stock_data_list = []
 
     for stock in stock_list:
-        stock_data = make_nse_request(URLS.NSE_URLS.STOCK_DATA.format(stock))
+        stock_data = request_nse_json(URLS.NSE_URLS.STOCK_DATA.format(stock))
         if not stock_data:
             print("No data found for: ", stock)
             continue
@@ -56,7 +56,7 @@ def get_nse_advances_declines():
     Returns:
         Dict: Returns a dict with advance decline data
     """
-    adv_dec = make_nse_request(URLS.NSE_URLS.ADV_DEC_ALL)
+    adv_dec = request_nse_json(URLS.NSE_URLS.ADV_DEC_ALL)
 
     adv_dec_dict = {
         "advances": adv_dec["advances"],
@@ -73,7 +73,7 @@ def get_capital_market_status():
     Returns:
         Dict: Returns a dict with capital market status data
     """
-    capital_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    capital_market_status = request_nse_json(URLS.NSE_URLS.MARKET_STATUS)
     return capital_market_status["marketStatus"][0]
 
 
@@ -82,7 +82,7 @@ def get_currency_market_status():
     Returns:
         Dict: Returns a dict with currency market status data
     """
-    currency_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    currency_market_status = request_nse_json(URLS.NSE_URLS.MARKET_STATUS)
     return currency_market_status["marketStatus"][1]
 
 
@@ -91,7 +91,7 @@ def get_commodity_market_status():
     Returns:
         Dict: Returns a dict with commodity market status data
     """
-    commodity_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    commodity_market_status = request_nse_json(URLS.NSE_URLS.MARKET_STATUS)
     return commodity_market_status["marketStatus"][2]
 
 
@@ -100,7 +100,7 @@ def get_debt_market_status():
     Returns:
         Dict: Returns a dict with debt market status data
     """
-    debt_market_status = make_nse_request(URLS.NSE_URLS.MARKET_STATUS)
+    debt_market_status = request_nse_json(URLS.NSE_URLS.MARKET_STATUS)
     return debt_market_status["marketStatus"][3]
 
 
@@ -109,7 +109,7 @@ def get_stock_symbols():
     Returns:
         List: Returns a list with all stock symbols
     """
-    securities_df = make_csv_request(URLS.NSE_URLS.SECURITIES_CSV)
+    securities_df = request_nse_csv(URLS.NSE_URLS.SECURITIES_CSV)
     return securities_df["SYMBOL"].tolist()
 
 
