@@ -32,3 +32,6 @@ class URLS(object):
         BASE_URL = "https://www.nseindia.com"
         GET_QUOTES = "/get-quotes/equity"
         STOCKS_URL_SUFFIX = "?symbol={}"
+        ADV_DEC_ALL = "https://www.nseindia.com/api/snapshot-capital-market-ews"
+        STOCK_DATA = "https://www.nseindia.com/api/quote-equity?symbol={}"
+        MARKET_STATUS = "https://www.nseindia.com/api/marketStatus"
