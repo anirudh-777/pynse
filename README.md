@@ -1,6 +1,12 @@
 # pynse
 Python library to get stock data from the NSE website.
 
+## Installation
+
+```
+pip install -i https://test.pypi.org/simple/ pynse
+```
+
 ## Basic Usage
 
 Get a stock's info as a pandas dataframe.
